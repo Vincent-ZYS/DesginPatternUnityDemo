@@ -5,7 +5,9 @@ using UnityEngine;
 public class ISceneState
 {
     private string mSceneName;
-    private SceneStatusController mController;
+    public string GetSceneName { get { return mSceneName; } }
+
+    protected SceneStatusController mController;
 
     public ISceneState(string sceneName, SceneStatusController controller)
     {

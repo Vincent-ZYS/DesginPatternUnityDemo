@@ -8,4 +8,10 @@ public class MainMenuState : ISceneState
     {
 
     }
+
+    public override void StateStart()
+    {
+        base.StateStart();
+        Debug.LogError("Fuck Menu!");
+    }
 }
