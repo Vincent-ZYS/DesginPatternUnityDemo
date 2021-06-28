@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BattleState : ISceneState
 {
-    public BattleState(SceneStatusController controller) : base("02MainMenuScene", controller)
+    public BattleState(SceneStatusController controller) : base("03BattleScene", controller)
     {
 
     }
