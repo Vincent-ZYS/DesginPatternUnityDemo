@@ -2,6 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAtrr : ICharacterAttr
+public class SoldierAttr : ICharacterAttr
 {
 }
