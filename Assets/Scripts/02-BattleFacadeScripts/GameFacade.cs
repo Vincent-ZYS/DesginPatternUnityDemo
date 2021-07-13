@@ -79,4 +79,9 @@ public class GameFacade
         mGameStateInfoUI.Release();
         mSoldierInfoUI.Release();
     }
+
+    public Vector3 GetEnemyTargetPosition() //TODO, Get the Enemy's target position when Stage System Control.
+    {
+        return Vector3.zero;
+    }
 }

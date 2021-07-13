@@ -1,46 +1,43 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum SoldierTransition
+public enum EnemyTransition
 {
     NullTransition = 0,
-    SeeEnemy,
-    NoEnemy,
-    CanAttackEnemy
+    CanAttack,
+    LostSoldier
 }
 
-public enum SoldierStateID
+public enum EnemyStateID
 {
     NullStateID = 0,
-    Idle,
     Attack,
     Chase
 }
 
-public abstract class ISoldierState
+public abstract class IEnemyState
 {
-    protected Dictionary<SoldierTransition, SoldierStateID> mMap = new Dictionary<SoldierTransition, SoldierStateID>();
+    protected Dictionary<EnemyTransition, EnemyStateID> mMap = new Dictionary<EnemyTransition, EnemyStateID>();
     protected ICharacter mCharacter;
-    protected SoldierFSMSystem mFSM;
-    protected SoldierStateID mStateID;
-    public SoldierStateID stateID { get { return mStateID; } }
+    protected EnemyFSMSystem mFSM;
+    protected EnemyStateID mStateID;
+    public EnemyStateID stateID { get { return mStateID; } }
 
-    public ISoldierState(SoldierFSMSystem fsm, ICharacter character)
+    public IEnemyState(EnemyFSMSystem fsm, ICharacter character)
     {
         mFSM = fsm;
         mCharacter = character;
     }
 
-    public void AddTransition(SoldierTransition trans, SoldierStateID stateID)
+    public void AddTransition(EnemyTransition trans, EnemyStateID stateID)
     {
-        if (trans == SoldierTransition.NullTransition)
+        if(trans == EnemyTransition.NullTransition)
         {
             Debug.Log("FSMState ERROR: NullTransition is not allowed for a real transition");
             return;
         }
-        if(stateID == SoldierStateID.NullStateID)
+        if (stateID == EnemyStateID.NullStateID)
         {
             Debug.Log("FSMState ERROR: NullStateID is not allowed for a real ID");
             return;
@@ -54,10 +51,9 @@ public abstract class ISoldierState
         mMap.Add(trans, stateID);
     }
 
-    public void DeleteTransition(SoldierTransition trans)
+    public void DeletTransition(EnemyTransition trans)
     {
-        // Check for NullTransition
-        if (trans == SoldierTransition.NullTransition)
+        if (trans == EnemyTransition.NullTransition)
         {
             Debug.LogError("FSMState ERROR: NullTransition is not allowed");
             return;
@@ -70,14 +66,14 @@ public abstract class ISoldierState
         mMap.Remove(trans);
     }
 
-    public SoldierStateID GetOutPutStateID(SoldierTransition trans)
+    public EnemyStateID GetOutPutStateID(EnemyTransition trans)
     {
         if(mMap.ContainsKey(trans))
         {
             return mMap[trans];
         }
         Debug.Log("FSMState ERROR: Transition" + trans.ToString() + " Not Existing or Null Reference!");
-        return SoldierStateID.NullStateID;
+        return EnemyStateID.NullStateID;
     }
 
     public virtual void DoBeforeEntering() { }

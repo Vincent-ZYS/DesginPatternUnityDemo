@@ -1,27 +1,26 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoldierFSMSystem
+public class EnemyFSMSystem
 {
-    private List<ISoldierState> mStates = new List<ISoldierState>();
-    private ISoldierState mCurrentState;
-    private SoldierStateID mCurrentStateID;
-    public ISoldierState GetCurrentState { get { return mCurrentState; } }
-    public SoldierStateID GetCurrentStateID { get { return mCurrentStateID; } }
+    private List<IEnemyState> mStates = new List<IEnemyState>();
+    private IEnemyState mCurrentState;
+    public IEnemyState GetCurrentState { get { return mCurrentState; } }
+    private EnemyStateID mCurrentStateID;
+    public EnemyStateID GetCurrentStateID { get { return mCurrentStateID; } }
 
-    public void AddStateToFSM(params ISoldierState[] states)
+    public void AddStateToFSM(params IEnemyState[] states)
     {
-        foreach(ISoldierState s in states)
+        foreach(IEnemyState state in states)
         {
-            AddStateToFSM(s);
-        }
+            AddStateToFSM(state);
+        }    
     }
 
-    public void AddStateToFSM(ISoldierState state)
+    public void AddStateToFSM(IEnemyState state)
     {
-        if(state == null)
+        if (state == null)
         {
             Debug.LogError("FSM ERROR: Null reference is not allowed");
         }
@@ -32,7 +31,7 @@ public class SoldierFSMSystem
             mCurrentStateID = state.stateID;
             return;
         }
-        foreach (ISoldierState stateItem in mStates)
+        foreach(IEnemyState stateItem in mStates)
         {
             if (stateItem.stateID == state.stateID)
             {
@@ -44,16 +43,16 @@ public class SoldierFSMSystem
         mStates.Add(state);
     }
 
-    public void DeleteStateFromFSM(SoldierStateID stateID)
+    public void DeleteStateFromFSM(EnemyStateID stateID)
     {
-        if (stateID == SoldierStateID.NullStateID)
+        if (stateID == EnemyStateID.NullStateID)
         {
             Debug.LogError("FSM ERROR: NullStateID is not allowed for a real state");
             return;
         }
-        foreach(ISoldierState state in mStates)
+        foreach (IEnemyState state in mStates)
         {
-            if(state.stateID == stateID)
+            if (state.stateID == stateID)
             {
                 mStates.Remove(state);
                 return;
@@ -63,30 +62,29 @@ public class SoldierFSMSystem
                        ". It was not on the list of states");
     }
 
-    public void PerformTransition(SoldierTransition trans)
+    public void PerformTransition(EnemyTransition trans)
     {
-        if (trans == SoldierTransition.NullTransition)
+        if (trans == EnemyTransition.NullTransition)
         {
             Debug.LogError("FSM ERROR: NullTransition is not allowed for a real transition");
             return;
         }
-        SoldierStateID nxtStateID = mCurrentState.GetOutPutStateID(trans);
-        if (nxtStateID == SoldierStateID.NullStateID)
+        EnemyStateID nxtStateID = mCurrentState.GetOutPutStateID(trans);
+        if (nxtStateID == EnemyStateID.NullStateID)
         {
             Debug.LogError("FSM ERROR: State " + mCurrentState.ToString() + " does not have a target state " +
                            " for transition " + trans.ToString());
             return;
         }
         mCurrentStateID = nxtStateID;
-        foreach(ISoldierState stateItem in mStates)
+        foreach (IEnemyState stateItem in mStates)
         {
             if(stateItem.stateID == mCurrentStateID)
             {
                 mCurrentState.DoBeforeLeaving();
                 mCurrentState = stateItem;
                 mCurrentState.DoBeforeEntering();
-                break;
-            }
+            }    
         }
     }
 }

@@ -6,7 +6,7 @@ public class ISoldier : ICharacter
 {
     protected SoldierFSMSystem mSoldierFSMSys;
 
-    //TODO
+    //TODO The construct function
     public ISoldier():base()
     {
         MakeFSM();
