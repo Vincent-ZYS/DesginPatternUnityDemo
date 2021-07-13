@@ -8,5 +8,7 @@ public class WeaponRocket : IWeapon
     {
         //TODO
         Debug.Log("Rocket shot!");
+
+        WeaponFireEffectActive("RocketShot", 0.1f, targetPosition, 0.4f);
     }
 }

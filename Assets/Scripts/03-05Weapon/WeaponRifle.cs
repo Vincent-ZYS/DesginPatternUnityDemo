@@ -8,5 +8,7 @@ public class WeaponRifle : IWeapon
     {
         //TODO
         Debug.Log("Rifle shot!");
+
+        WeaponFireEffectActive("RifleShot", 0.02f, targetPosition, 0.1f);
     }
 }
