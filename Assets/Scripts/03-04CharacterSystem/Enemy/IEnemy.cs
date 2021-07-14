@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IEnemy : ICharacter
+public abstract class IEnemy : ICharacter
 {
     protected EnemyFSMSystem mEnemyFSMSys;
     public IEnemy():base()
@@ -16,7 +16,6 @@ public class IEnemy : ICharacter
         mEnemyFSMSys.GetCurrentState.Act(targets);
     }
 
-
     private void MakeFSM()
     {
         mEnemyFSMSys = new EnemyFSMSystem();
@@ -27,4 +26,16 @@ public class IEnemy : ICharacter
 
         mEnemyFSMSys.AddStateToFSM(chaseState, attackState);
     }
+
+    public override void UnderAttack(int damage)
+    {
+        base.UnderAttack(damage);
+        PlayEffect();
+        if (mCharacterAttr.GetCurrentHP <= 0)
+        {
+            GetKilled();
+        }
+    }
+
+    protected abstract void PlayEffect();
 }

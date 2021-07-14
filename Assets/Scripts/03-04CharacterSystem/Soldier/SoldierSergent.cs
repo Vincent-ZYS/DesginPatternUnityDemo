@@ -4,4 +4,13 @@ using UnityEngine;
 
 public class SoldierSergent : ISoldier
 {
+    protected override void PlayEffect()
+    {
+        DoPlayEffect("SergentDeadEffect");
+    }
+
+    protected override void PlaySoundEffect()
+    {
+        DoPlaySoundEffect("SergentDeath");
+    }
 }

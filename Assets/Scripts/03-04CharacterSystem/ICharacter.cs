@@ -43,8 +43,39 @@ public abstract class ICharacter
     {
         //Enable current character attack target.
         mWeapon.Fire(target.characterPos);
+        mCharacterGo.transform.LookAt(target.characterPos);
+        PlayAnimation("attack");
+        UnderAttack(mWeapon.AtkDamage + mCharacterAttr.GetCrticDmg);
     }
 
+    public virtual void UnderAttack(int damage) //Current Character is under attack.
+    {
+        mCharacterAttr.TakeDmgFromAttr(damage);
+        //TODO Audio, animation and so on
+        //Only Enemy has underAttack effect, particle effect
+        //Only Soldier has attack audio, particle effect
+    }
+
+    public void GetKilled()
+    {
+
+    }
+
+    protected void DoPlayEffect(string effectName)
+    {
+        //TODO Through the Resource management system to manage the resouces initiation.
+        GameObject effectGo;
+        //Use IEnumerator to control the effect objects' destroy.
+    }
+
+    protected void DoPlaySoundEffect(string clipName)
+    {
+        //TODO Through the Resource management system to manage the resouces initiation.
+        AudioClip clip = null;//TODO
+        mAudio.clip = clip;
+        mAudio.Play();
+        //Use IEnumerator to control the effect objects' destroy.
+    }
     public void PlayAnimation(string animName)
     {
         //Set the current animation for the current character
@@ -55,5 +86,6 @@ public abstract class ICharacter
     {
         //Set target for the current character, then move.
         mNavAgent.SetDestination(targetPosition);
+        PlayAnimation("move");
     }
 }

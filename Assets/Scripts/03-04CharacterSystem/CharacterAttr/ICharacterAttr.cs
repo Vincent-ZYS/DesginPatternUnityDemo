@@ -11,10 +11,29 @@ public abstract class ICharacterAttr
     protected string mSpriteIconName;
 
     protected int mLevel;
-    protected float mCriticDmg;//0~1 critic damage.
+    protected int mDmgDescVal;
+    protected float mCriticRate;//0~1 critic damage.
     //Once the level up, the soldier will improve their MaxHP, Damage Defend ability.
     // The Enemy would not level up, but still have critic damage.
 
     protected IAttrStrategy charAttrStrategy;
     //Can Set the specific strategy once the specific character is constructed.
+
+    public ICharacterAttr(IAttrStrategy strategy)
+    {
+        charAttrStrategy = strategy;
+        mDmgDescVal = charAttrStrategy.GetDmgDescVal(mLevel);
+        mCurrentHP = mMaxHP + charAttrStrategy.GetExtraHPVal(mLevel);
+    }
+
+    public int GetCurrentHP { get { return mCurrentHP; } }
+
+    public int GetCrticDmg{ get { return charAttrStrategy.GetCriticDmg(mCriticRate); } }
+
+    public void TakeDmgFromAttr(int damage) //The mDmgDescVal only need to initial at first time.
+    {
+        damage -= mDmgDescVal;
+        if (damage <= 5) { damage = 5; }//fixed damage, limitation
+        mCurrentHP -= damage;
+    }
 }

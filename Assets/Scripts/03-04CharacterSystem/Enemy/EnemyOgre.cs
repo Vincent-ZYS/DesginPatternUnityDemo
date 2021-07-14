@@ -4,4 +4,8 @@ using UnityEngine;
 
 public class EnemyOgre : IEnemy
 {
+    protected override void PlayEffect()
+    {
+        DoPlayEffect("OgreHitEffect");
+    }
 }

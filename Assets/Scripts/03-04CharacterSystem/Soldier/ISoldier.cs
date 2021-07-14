@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ISoldier : ICharacter
+public abstract class ISoldier : ICharacter
 {
     protected SoldierFSMSystem mSoldierFSMSys;
 
@@ -34,4 +34,18 @@ public class ISoldier : ICharacter
 
         mSoldierFSMSys.AddStateToFSM(idleState, chaseState, attackState);
     }
+
+    public override void UnderAttack(int damage)
+    {
+        base.UnderAttack(damage);
+        PlayEffect();
+        if(mCharacterAttr.GetCurrentHP <= 0)
+        {
+            PlaySoundEffect();
+            GetKilled();
+        }
+    }
+
+    protected abstract void PlaySoundEffect();
+    protected abstract void PlayEffect();
 }

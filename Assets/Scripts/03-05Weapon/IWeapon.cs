@@ -5,6 +5,8 @@ using UnityEngine;
 public abstract class IWeapon
 {
     protected int mAtkPower;
+    public int AtkDamage { get { return mAtkPower; } }
+
     protected float mAtkRange;
     public float AtkRange { get { return mAtkRange; } }
     protected int mExtraAtkPower;
