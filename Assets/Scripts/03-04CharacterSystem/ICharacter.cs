@@ -32,6 +32,13 @@ public abstract class ICharacter
         }
     }
 
+    public abstract void UpdateFSMAI(List<ICharacter> targets);
+
+    public void CharacterUpdate()
+    {
+        mWeapon.WeaponUpdate();
+    }
+
     public void Attack(ICharacter target)
     {
         //Enable current character attack target.

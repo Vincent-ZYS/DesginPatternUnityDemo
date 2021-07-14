@@ -10,7 +10,7 @@ public class IEnemy : ICharacter
         MakeFSM();
     }
 
-    public void UpdateFSMAI(List<ICharacter> targets)
+    public override void UpdateFSMAI(List<ICharacter> targets)
     {
         mEnemyFSMSys.GetCurrentState.Reason(targets);
         mEnemyFSMSys.GetCurrentState.Act(targets);

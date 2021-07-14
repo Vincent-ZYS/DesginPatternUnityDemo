@@ -12,7 +12,7 @@ public class ISoldier : ICharacter
         MakeFSM();
     }
 
-    public void UpdateFSMAI(List<ICharacter> targets)
+    public override void UpdateFSMAI(List<ICharacter> targets)
     {
         mSoldierFSMSys.GetCurrentState.Reason(targets);
         mSoldierFSMSys.GetCurrentState.Act(targets);
