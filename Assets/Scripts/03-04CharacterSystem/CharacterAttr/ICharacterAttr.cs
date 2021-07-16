@@ -7,9 +7,10 @@ public abstract class ICharacterAttr
     protected string mCharacterName;
     protected int mMaxHP;
     protected float mMoveSpeed;
-    protected int mCurrentHP;
     protected string mSpriteIconName;
+    protected string mPrefabName;
 
+    protected int mCurrentHP;
     protected int mLevel;
     protected int mDmgDescVal;
     protected float mCriticRate;//0~1 critic damage.
@@ -19,9 +20,14 @@ public abstract class ICharacterAttr
     protected IAttrStrategy charAttrStrategy;
     //Can Set the specific strategy once the specific character is constructed.
 
-    public ICharacterAttr(IAttrStrategy strategy)
+    public ICharacterAttr(IAttrStrategy strategy, string name, int maxHP, float moveSpeed, string iconSpriteName, string prefabName)
     {
+        mCharacterName = name;
+        mMaxHP = maxHP;
+        mMoveSpeed = moveSpeed;
         charAttrStrategy = strategy;
+        mSpriteIconName = iconSpriteName;
+        mPrefabName = prefabName;
         mDmgDescVal = charAttrStrategy.GetDmgDescVal(mLevel);
         mCurrentHP = mMaxHP + charAttrStrategy.GetExtraHPVal(mLevel);
     }

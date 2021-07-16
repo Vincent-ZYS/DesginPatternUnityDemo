@@ -16,6 +16,8 @@ public abstract class ICharacter
 
     public float GetAtkRange { get { return mWeapon.AtkRange; } }
 
+    public ICharacterAttr SetCharacterAttr { set { mCharacterAttr = value; } }
+
     public Vector3 characterPos
     {
         get
@@ -58,7 +60,7 @@ public abstract class ICharacter
 
     public void GetKilled()
     {
-
+        //TODO
     }
 
     protected void DoPlayEffect(string effectName)
