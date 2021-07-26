@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class WeaponRocket : IWeapon
 {
+    public WeaponRocket(int atkPower, float atkRange, GameObject weaponGo) : base(atkPower, atkRange, weaponGo)
+    {
+    }
     public override void Fire(Vector3 targetPosition)
     {
         //TODO

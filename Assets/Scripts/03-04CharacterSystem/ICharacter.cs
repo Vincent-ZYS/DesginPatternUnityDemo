@@ -12,11 +12,35 @@ public abstract class ICharacter
     protected Animation mAnim;
     protected IWeapon mWeapon;
 
-    public IWeapon usingWeapon { set { mWeapon = value; } }
+    public IWeapon usingWeapon { 
+        set 
+        { 
+            mWeapon = value;
+            mWeapon.SetWeaponOwner = this;
+            //TODO Get the Weapon point from Current Player
+            //mWeapon.GetWeaponGo.transform.SetParent(UnityTool.FindChildGo(mCharacterGo, "weapon-point"));
+            UnityTool.AttachGo(UnityTool.FindChildGo(mCharacterGo, "weapon-point").gameObject, mWeapon.GetWeaponGo);
+        } 
+        get 
+        { 
+            return mWeapon; 
+        }
+    }
 
     public float GetAtkRange { get { return mWeapon.AtkRange; } }
 
     public ICharacterAttr SetCharacterAttr { set { mCharacterAttr = value; } }
+
+    public GameObject CharacterGo
+    {
+        set
+        {
+            mCharacterGo = value;
+            mNavAgent = mCharacterGo.GetComponent<NavMeshAgent>();
+            mAudio = mCharacterGo.GetComponent<AudioSource>();
+            mAnim = mCharacterGo.GetComponentInChildren<Animation>();
+        }
+    }
 
     public Vector3 characterPos
     {

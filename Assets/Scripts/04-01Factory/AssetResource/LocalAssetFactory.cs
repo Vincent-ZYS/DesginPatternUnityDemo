@@ -4,7 +4,7 @@ using UnityEngine;
 
 class LocalAssetFactory : IAssetFactory
 {
-    public GameObject LoadAudioClip(string name)
+    public AudioClip LoadAudioClip(string name)
     {
         throw new System.NotImplementedException();
     }
@@ -24,7 +24,7 @@ class LocalAssetFactory : IAssetFactory
         throw new System.NotImplementedException();
     }
 
-    public GameObject LoadSprite(string name)
+    public Sprite LoadSprite(string name)
     {
         throw new System.NotImplementedException();
     }

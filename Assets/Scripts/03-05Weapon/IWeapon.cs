@@ -27,6 +27,23 @@ public abstract class IWeapon
 
     protected float mEffectDisactiveTime = 0f;
 
+    public ICharacter SetWeaponOwner { set { mWeaponOwner = value; } }
+
+    public GameObject GetWeaponGo { get { return mWeaponGo; } }
+
+    public IWeapon(int atkPower, float atkRange, GameObject weaponGo)
+    {
+        mAtkPower = atkPower;
+        mAtkRange = atkRange;
+        mWeaponGo = weaponGo;
+
+        Transform weaponEffect = weaponGo.transform.Find("Effect");
+        mParticleEffect = weaponEffect.GetComponent<ParticleSystem>();
+        mLineRdEffect = weaponEffect.GetComponent<LineRenderer>();
+        mLightEffect = weaponEffect.GetComponent<Light>();
+        mAudio = weaponEffect.GetComponent<AudioSource>();
+    }
+
     public void WeaponUpdate()
     {
         if(mEffectDisactiveTime > 0f)

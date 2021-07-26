@@ -7,10 +7,6 @@ class SoldierFactory : ICharacterFactory
     public ICharacter CreateCharacter<T>(WeaponType wpType, Vector3 spawnPos, int lv = 1) where T : ICharacter, new()
     {
         ICharacter character = new T();
-        //Create Current Soldier Game Object: 1.Load Resources 2.Instantiation TODO
-
-        //Add Weapon TODO
-
         string characterName = "Default";
         int maxHP = 10;
         float moveSpeed = 0.5f;
@@ -40,13 +36,20 @@ class SoldierFactory : ICharacterFactory
             spriteIconName = "RookieIcon";
             prefabName = "Soldier2";
         }else
-        {
+         {
             Debug.LogError("The type of " + t + " is not belong to ISoldier type. Can Not create Character!");
             return null;
         }
         IAttrStrategy strategy = new SoldierAttrStrategy();
         ICharacterAttr attr = new SoldierAttr(strategy, characterName, maxHP, moveSpeed, spriteIconName, prefabName);
         character.SetCharacterAttr = attr;
+
+        //Create Current Soldier Game Object: 1.Load Resources 2.Instantiation TODO
+        GameObject characterGo = FactoryManager.GetAssetFactory.LoadSoldier(prefabName);
+        character.CharacterGo = characterGo;
+        characterGo.transform.position = spawnPos;
+        //Add Weapon TODO
+        character.usingWeapon = FactoryManager.GetWeaponFactory.CreateWeapon(wpType);
 
         return character;
     }
